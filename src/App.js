@@ -3,7 +3,6 @@ import { CssBaseline, Grid } from "@material-ui/core";
 
 import Header from "./components/header/Header";
 import ListOfLocations from "./components/list-of-locations/ListOfLocations";
-import LocationInfo from "./components/location-info/LocationInfo";
 import Map from "./components/map/Map";
 
 const App = () => {
