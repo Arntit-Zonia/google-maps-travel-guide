@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-    CircularProgress,
-    Grid,
-    Typography,
-    InputLabel,
-    MenuItem,
-    FormControl,
-    Select,
-} from "@material-ui/core";
+import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select } from "@material-ui/core";
 
 import LocationInfo from "./LocationInfo";
 import getStyles from "../styling/styles";
@@ -33,8 +25,8 @@ const ListOfLocations = () => {
             return <LocationInfo error="No locations available" />;
         }
 
-        return locations.map((location) => (
-            <Grid item key={new Date()} xs={12}>
+        return locations.map((location, i) => (
+            <Grid item key={i} xs={12}>
                 <LocationInfo location={location} />
             </Grid>
         ));
