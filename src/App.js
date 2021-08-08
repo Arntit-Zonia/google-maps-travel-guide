@@ -1,9 +1,9 @@
 import React from "react";
 import { CssBaseline, Grid } from "@material-ui/core";
 
-import Header from "./components/header/Header";
-import ListOfLocations from "./components/list-of-locations/ListOfLocations";
-import Map from "./components/map/Map";
+import Header from "./components/Header";
+import ListOfLocations from "./components/ListOfLocations";
+import Map from "./components/Map";
 
 const App = () => {
     return (
