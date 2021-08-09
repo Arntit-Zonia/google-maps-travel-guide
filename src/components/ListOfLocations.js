@@ -2,34 +2,27 @@ import React, { useState } from "react";
 import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select } from "@material-ui/core";
 
 import LocationInfo from "./LocationInfo";
-import getStyles from "../styling/styles";
+import getStyles from "../styles/ListOfLocations";
 
-const ListOfLocations = () => {
+const ListOfLocations = ({ restaurants }) => {
     const classes = getStyles();
     const [selectVal, setSelectVal] = useState("restaurants");
     const [ratingVal, setRatingVal] = useState("");
-    const locations = [
-        { name: 1 },
-        { name: 2 },
-        { name: 3 },
-        { name: 4 },
-        { name: 5 },
-        { name: 6 },
-    ];
 
     const handleSelectVal = (e) => setSelectVal(e.target.value);
     const handleRatingtVal = (e) => setRatingVal(e.target.value);
 
-    const renderLocations = () => {
-        if (!locations.length) {
-            return <LocationInfo error="No locations available" />;
+    const renderRestaurants = () => {
+        if (!restaurants) {
+            return <LocationInfo error="Loading Restaurants..." />;
         }
-
-        return locations.map((location, i) => (
-            <Grid item key={i} xs={12}>
-                <LocationInfo location={location} />
-            </Grid>
-        ));
+        else {
+            return restaurants.map((restaurant, i) => (
+                <Grid item key={i} xs={12}>
+                    <LocationInfo restaurant={restaurant} />
+                </Grid>
+            ));
+        }
     };
 
     return (
@@ -56,7 +49,7 @@ const ListOfLocations = () => {
                     <MenuItem value={4.5}>Above 4.5</MenuItem>
                 </Select>
             </FormControl>
-            {renderLocations()}
+            {renderRestaurants()}
         </div>
     );
 };
