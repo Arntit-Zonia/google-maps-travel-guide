@@ -8,15 +8,21 @@ import { getRestaurantsData } from "./api";
 
 const App = () => {
     const [restaurants, setRestaurants] = useState([]);
-    const [coords, setCoords] = useState({ lat: 0, lng: 0 });
-    const [bounds, setBounds] = useState(null);
+    const [coords, setCoords] = useState({});
+    const [bounds, setBounds] = useState({ ne: 0, sw: 0});
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
+            setCoords({ lat: latitude, lng: longitude });
+        });
+    }, []);
 
     useEffect(() => {
         console.log(coords, bounds);
 
-        getRestaurantsData()
+        getRestaurantsData(bounds.ne, bounds.sw)
         .then((data) => {
-            // console.log(data);
+            console.log(data);
 
             setRestaurants(data);
         });
