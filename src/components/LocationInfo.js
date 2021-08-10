@@ -22,6 +22,31 @@ const LocationInfo = ({ restaurant, error }) => {
             />
             <CardContent>
                 <Typography gutterBottom variant="h5">{restaurant.name}</Typography>
+                <Box display="flex" justifyContent="space-between">
+                    <Typography gutterBottom variant="subtitle1">{restaurant.price_level}</Typography>
+                    <Typography gutterBottom variant="subtitle1">{restaurant.ranking}</Typography>
+                </Box>
+                {restaurant?.awards?.map((award) => (
+                    <Box display="flex" justifyContent="space-between" alignItems="center" my={1}>
+                        <img src={award.images.small} alt={award.display_name} />
+                        <Typography variant="subtitle2" color="textSecondary">{award.display_name}</Typography>
+                    </Box>
+                ))}
+                {restaurant?.cuisine?.map(({ name }) => (
+                    <Chip key={name} size="small" label={name} className={classes.chip} />
+                ))}
+
+                {restaurant?.address && (
+                    <Typography className={classes.subtitle} gutterBottom variant="subtitle2" color="textSecondary">
+                        <LocationOnIcon /> {restaurant.address}
+                    </Typography>
+                )}
+
+                {restaurant?.phone && (
+                    <Typography className={classes.spacing} gutterBottom variant="subtitle2" color="textSecondary">
+                        <PhoneIcon /> {restaurant.phone}
+                    </Typography>
+                )}
             </CardContent>
         </Card>
     );
