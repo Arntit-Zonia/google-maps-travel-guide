@@ -25,6 +25,10 @@ const LocationInfo = ({ restaurant, error }) => {
             <CardContent>
                 <Typography gutterBottom variant="h5">{restaurant.name}</Typography>
                 <Box display="flex" justifyContent="space-between">
+                    <Rating value={Number(restaurant.rating)} readOnly />
+                    <Typography gutterBottom variant="subtitle1">out of {restaurant.num_reviews} reviews</Typography>
+                </Box>
+                <Box display="flex" justifyContent="space-between">
                     <Typography gutterBottom variant="subtitle1">{restaurant.ranking}</Typography>
                 </Box>
                 {restaurant?.awards?.map((award) => (

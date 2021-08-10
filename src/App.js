@@ -37,7 +37,7 @@ const App = () => {
                     <ListOfLocations restaurants={restaurants} />
                 </Grid>
                 <Grid item xs={12} md={8}>
-                    <Map coords={coords} setCoords={setCoords} setBounds={setBounds} />
+                    <Map coords={coords} setCoords={setCoords} setBounds={setBounds} restaurants={restaurants} />
                 </Grid>
             </Grid>
         </div>
