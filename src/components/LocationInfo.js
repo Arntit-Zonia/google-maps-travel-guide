@@ -9,6 +9,8 @@ import getStyles from "../styles/LocationInfo";
 const LocationInfo = ({ restaurant, error }) => {
     const classes = getStyles();
 
+    const visitRestaurantUrl = (url) => window.open(url, "_blank");
+
     if (error) {
         return <div className="location-info">{error}</div>;
     }
@@ -23,7 +25,6 @@ const LocationInfo = ({ restaurant, error }) => {
             <CardContent>
                 <Typography gutterBottom variant="h5">{restaurant.name}</Typography>
                 <Box display="flex" justifyContent="space-between">
-                    <Typography gutterBottom variant="subtitle1">{restaurant.price_level}</Typography>
                     <Typography gutterBottom variant="subtitle1">{restaurant.ranking}</Typography>
                 </Box>
                 {restaurant?.awards?.map((award) => (
@@ -47,6 +48,12 @@ const LocationInfo = ({ restaurant, error }) => {
                         <PhoneIcon /> {restaurant.phone}
                     </Typography>
                 )}
+                <Button size="small" color="primary" onClick={() => window.open(restaurant.web_url, "_blank")}>
+                    Trip Advisor
+                </Button>
+                <Button size="small" color="primary" onClick={() => window.open(restaurant.website, "_blank")}>
+                    Website
+                </Button>
             </CardContent>
         </Card>
     );

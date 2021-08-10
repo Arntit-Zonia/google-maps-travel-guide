@@ -26,7 +26,7 @@ const App = () => {
 
             setRestaurants(data);
         });
-    }, [coords, bounds]);
+    }, [bounds]);
 
     return (
         <div className="app">

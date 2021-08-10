@@ -11,7 +11,7 @@ const ListOfLocations = ({ restaurants }) => {
 
     const handleSelectVal = (e) => setSelectVal(e.target.value);
     const handleRatingtVal = (e) => setRatingVal(e.target.value);
-
+    
     const renderRestaurants = () => {
         if (!restaurants) {
             return <LocationInfo error="Loading Restaurants..." />;
@@ -49,7 +49,7 @@ const ListOfLocations = ({ restaurants }) => {
                     <MenuItem value={4.5}>Above 4.5</MenuItem>
                 </Select>
             </FormControl>
-            {renderRestaurants()}
+            <Grid container spacing={3} className={classes.list}>{renderRestaurants()}</Grid>
         </div>
     );
 };
