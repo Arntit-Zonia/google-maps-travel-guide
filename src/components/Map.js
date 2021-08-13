@@ -7,12 +7,13 @@ import Rating from '@material-ui/lab/Rating';
 import getStyles from "../styles/Map";
 import { Restaurant } from "@material-ui/icons";
 
-const Map = ({ coords, setCoords, setBounds, restaurants }) => {
+const Map = ({ coords, setCoords, setBounds, restaurants, setChildClicked }) => {
     const classes = getStyles();
     const desktop = useMediaQuery('(min-width:600px)');
 
     const handleCoordsOnChange = ({ center: { lat, lng } }) => setCoords({ lat, lng });
     const handleBoundsOnChange = ({ marginBounds: { ne, sw } }) => setBounds({ ne, sw });
+    const handleChildClick = (e) => setChildClicked(e);
 
     return (
         <div className={classes.mapContainer}>
@@ -30,6 +31,7 @@ const Map = ({ coords, setCoords, setBounds, restaurants }) => {
                         handleBoundsOnChange(e);
                     }
                 }
+                onChildClick={(e) => handleChildClick(e)}
             >
                 {restaurants?.map((restaurant, i) => (
                     <div 
