@@ -10,6 +10,8 @@ const App = () => {
     const [restaurants, setRestaurants] = useState([]);
     const [coords, setCoords] = useState({});
     const [bounds, setBounds] = useState({});
+    const [childClicked, setChildClicked] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
@@ -18,6 +20,7 @@ const App = () => {
     }, []);
 
     useEffect(() => {
+        setIsLoading(true);
         console.log(coords, bounds);
 
         getRestaurantsData(bounds.ne, bounds.sw)
@@ -25,6 +28,8 @@ const App = () => {
             console.log(data);
 
             setRestaurants(data);
+
+            setIsLoading(false);
         });
     }, [bounds]);
 
@@ -34,10 +39,16 @@ const App = () => {
             <Header />
             <Grid container spacing={3} style={{ width: "100%" }}>
                 <Grid item xs={12} md={4}>
-                    <ListOfLocations restaurants={restaurants} />
+                    <ListOfLocations restaurants={restaurants} childClicked={childClicked} isLoading={isLoading} />
                 </Grid>
                 <Grid item xs={12} md={8}>
-                    <Map coords={coords} setCoords={setCoords} setBounds={setBounds} restaurants={restaurants} />
+                    <Map 
+                        coords={coords}
+                        setCoords={setCoords} 
+                        setBounds={setBounds}
+                        restaurants={restaurants}
+                        setChildClicked={setChildClicked}
+                    />
                 </Grid>
             </Grid>
         </div>
