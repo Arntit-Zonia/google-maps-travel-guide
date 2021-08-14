@@ -18,10 +18,10 @@ const ListOfLocations = ({ locationData, childClicked, isLoading, selectVal, set
       setElmRefs(refs);
     }, [locationData]);
 
-    const renderRestaurants = () => {
-        return locationData?.map((restaurant, i) => (
+    const renderLocation = () => {
+        return locationData?.map((location, i) => (
             <Grid ref={elmRefs[i]} item key={i} xs={12}>
-                <LocationInfo selected={Number(childClicked) === i} refProp={elmRefs[i]} restaurant={restaurant} />
+                <LocationInfo selected={Number(childClicked) === i} refProp={elmRefs[i]} location={location} />
             </Grid>
         ));
     }
@@ -55,7 +55,7 @@ const ListOfLocations = ({ locationData, childClicked, isLoading, selectVal, set
             </FormControl>
 
             <Grid container spacing={3} className={classes.list}>
-                {renderRestaurants()}
+                {renderLocation()}
             </Grid>
           </>
         )}

@@ -23,24 +23,23 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        const filteredData = locationData.filter((restaurant) => restaurant.rating > ratingVal);
+        const filteredData = locationData.filter((location) => location.rating > ratingVal);
 
         setFilteredData(filteredData);
     }, [ratingVal]);
 
     useEffect(() => {
-        setIsLoading(true);
-        console.log(coords, bounds);
+        if (bounds.ne && bounds.sw) {
+            setIsLoading(true);
 
-        getLocationsData(selectVal, bounds.ne, bounds.sw)
-        .then((data) => {
-            console.log(data);
+            getLocationsData(selectVal, bounds.ne, bounds.sw)
+                .then((data) => {
+                    setLocationData(data?.filter((location) => location.name && location.num_reviews > 0));
+                    setFilteredData([]);
 
-            setLocationData(data);
-            setFilteredData([]);
-
-            setIsLoading(false);
-        });
+                    setIsLoading(false);
+                });
+        }
     }, [selectVal, bounds]);
 
     return (

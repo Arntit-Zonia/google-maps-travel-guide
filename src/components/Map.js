@@ -25,19 +25,17 @@ const Map = ({ coords, setCoords, setBounds, locationData, setChildClicked }) =>
                 margin={ [50, 50] }
                 onChange = {
                     (e) => {
-                        // console.log(e);
-
                         handleCoordsOnChange(e);
                         handleBoundsOnChange(e);
                     }
                 }
                 onChildClick={(e) => handleChildClick(e)}
             >
-                {locationData?.map((restaurant, i) => (
+                {locationData?.map((location, i) => (
                     <div 
                         className={classes.markerContainer} 
-                        lat={Number(restaurant.latitude)} 
-                        lng={Number(restaurant.longitude)}
+                        lat={Number(location.latitude)} 
+                        lng={Number(location.longitude)}
                         key={i}
                     >
                         {
@@ -46,14 +44,14 @@ const Map = ({ coords, setCoords, setBounds, locationData, setChildClicked }) =>
                           ) : (
                               <Paper elevation={3} className={classes.paper}>
                                   <Typography className={classes.typography} variant="subtitle2" gutterBottom>
-                                      {restaurant.name}
+                                      {location.name}
                                   </Typography>
                                   <img 
                                     className={classes.pointer}
-                                    src={ restaurant.photo ? restaurant.photo.images.large.url : "https://www.advancedfactors.co.uk/ekmps/shops/advancedfactors/images/lr090528-t2h17606-bolt-1033586-dv-p.png" } 
+                                    src={ location.photo ? location.photo.images.large.url : "https://www.advancedfactors.co.uk/ekmps/shops/advancedfactors/images/lr090528-t2h17606-bolt-1033586-dv-p.png" } 
                                     alt={Restaurant.name}
                                   />
-                                  <Rating size="small" value={Number(restaurant.rating)} readOnly />
+                                  <Rating size="small" value={Number(location.rating)} readOnly />
                               </Paper>
                           )
                         }
