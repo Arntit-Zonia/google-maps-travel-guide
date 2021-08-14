@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { AppBar, Toolbar, Typography, InputBase, Box } from "@material-ui/core";
+import { Autocomplete } from "@react-google-maps/api";
 import SearchIcon from "@material-ui/icons/Search";
 
 import getStyles from "../styles/Header";
 
-const Header = () => {
+const Header = ({ setCoords }) => {
     const classes = getStyles();
+
+    const [autoComplete, setAutoComplete] = useState(null);
+
+    const handleOnLoad = (autoComp) => setAutoComplete(autoComp); 
+    const handleOnPlaceChanged = () => {
+        const lat = autoComplete.getPlace().geometry.location.lat();
+        const lng = autoComplete.getPlace().geometry.location.lng();
+
+        setCoords({ lat, lng });
+    };
 
     return (
         <AppBar position="static">
@@ -17,18 +28,21 @@ const Header = () => {
                     <Typography variant="h6" className={classes.title}>
                         Explore new places
                     </Typography>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
+                    <Autocomplete onLoad={handleOnLoad} onPlaceChanged={handleOnPlaceChanged}>
+                        <div className={classes.search}>
+                            <div className={classes.searchIcon}>
+                                <SearchIcon />
+                            </div>
+                            <InputBase
+                                placeholder="Search"
+                                classes={{
+                                    root: classes.inputRoot,
+                                    input: classes.inputInput,
+                                }}
+                            />
                         </div>
-                        <InputBase
-                            placeholder="Search"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                        />
-                    </div>
+                    </Autocomplete>
+                    
                 </Box>
             </Toolbar>
         </AppBar>
