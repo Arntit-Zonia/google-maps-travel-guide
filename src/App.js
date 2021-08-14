@@ -4,14 +4,17 @@ import { CssBaseline, Grid } from "@material-ui/core";
 import Header from "./components/Header";
 import ListOfLocations from "./components/ListOfLocations";
 import Map from "./components/Map";
-import { getRestaurantsData } from "./api";
+import { getLocationsData } from "./api";
 
 const App = () => {
-    const [restaurants, setRestaurants] = useState([]);
+    const [locationData, setLocationData] = useState([]);
     const [coords, setCoords] = useState({});
     const [bounds, setBounds] = useState({});
     const [childClicked, setChildClicked] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [selectVal, setSelectVal] = useState("restaurants");
+    const [ratingVal, setRatingVal] = useState("");
+    const [filteredData, setFilteredData] = useState([]);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
@@ -20,18 +23,25 @@ const App = () => {
     }, []);
 
     useEffect(() => {
+        const filteredData = locationData.filter((restaurant) => restaurant.rating > ratingVal);
+
+        setFilteredData(filteredData);
+    }, [ratingVal]);
+
+    useEffect(() => {
         setIsLoading(true);
         console.log(coords, bounds);
 
-        getRestaurantsData(bounds.ne, bounds.sw)
+        getLocationsData(selectVal, bounds.ne, bounds.sw)
         .then((data) => {
             console.log(data);
 
-            setRestaurants(data);
+            setLocationData(data);
+            setFilteredData([]);
 
             setIsLoading(false);
         });
-    }, [bounds]);
+    }, [selectVal, bounds]);
 
     return (
         <div className="app">
@@ -40,7 +50,15 @@ const App = () => {
             
             <Grid container spacing={3} style={{ width: "100%" }}>
                 <Grid item xs={12} md={4}>
-                    <ListOfLocations restaurants={restaurants} childClicked={childClicked} isLoading={isLoading} />
+                    <ListOfLocations 
+                        locationData={filteredData.length ? filteredData : locationData } 
+                        childClicked={childClicked}
+                        isLoading={isLoading} 
+                        selectVal={selectVal}
+                        setSelectVal={setSelectVal}
+                        ratingVal={ratingVal}
+                        setRatingVal={setRatingVal}
+                    />
                 </Grid>
 
                 <Grid item xs={12} md={8}>
@@ -48,7 +66,7 @@ const App = () => {
                         coords={coords}
                         setCoords={setCoords} 
                         setBounds={setBounds}
-                        restaurants={restaurants}
+                        locationData={filteredData.length ? filteredData : locationData }
                         setChildClicked={setChildClicked}
                     />
                 </Grid>

@@ -4,24 +4,22 @@ import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, 
 import LocationInfo from "./LocationInfo";
 import getStyles from "../styles/ListOfLocations";
 
-const ListOfLocations = ({ restaurants, childClicked, isLoading }) => {
+const ListOfLocations = ({ locationData, childClicked, isLoading, selectVal, setSelectVal, ratingVal, setRatingVal }) => {
     const classes = getStyles();
-    
-    const [elmRefs, setElmRefs] = useState([]);
-    const [selectVal, setSelectVal] = useState("restaurants");
-    const [ratingVal, setRatingVal] = useState("");
 
+    const [elmRefs, setElmRefs] = useState([]);
+    
     const handleSelectVal = (e) => setSelectVal(e.target.value);
     const handleRatingVal = (e) => setRatingVal(e.target.value);
 
     useEffect(() => {
-      const refs = Array(restaurants?.length).fill().map((elm, i) => elmRefs[i] || createRef());
+      const refs = Array(locationData?.length).fill().map((elm, i) => elmRefs[i] || createRef());
 
       setElmRefs(refs);
-    }, [restaurants]);
+    }, [locationData]);
 
     const renderRestaurants = () => {
-        return restaurants?.map((restaurant, i) => (
+        return locationData?.map((restaurant, i) => (
             <Grid ref={elmRefs[i]} item key={i} xs={12}>
                 <LocationInfo selected={Number(childClicked) === i} refProp={elmRefs[i]} restaurant={restaurant} />
             </Grid>

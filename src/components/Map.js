@@ -7,7 +7,7 @@ import Rating from '@material-ui/lab/Rating';
 import getStyles from "../styles/Map";
 import { Restaurant } from "@material-ui/icons";
 
-const Map = ({ coords, setCoords, setBounds, restaurants, setChildClicked }) => {
+const Map = ({ coords, setCoords, setBounds, locationData, setChildClicked }) => {
     const classes = getStyles();
     const desktop = useMediaQuery('(min-width:600px)');
 
@@ -33,7 +33,7 @@ const Map = ({ coords, setCoords, setBounds, restaurants, setChildClicked }) => 
                 }
                 onChildClick={(e) => handleChildClick(e)}
             >
-                {restaurants?.map((restaurant, i) => (
+                {locationData?.map((restaurant, i) => (
                     <div 
                         className={classes.markerContainer} 
                         lat={Number(restaurant.latitude)} 
